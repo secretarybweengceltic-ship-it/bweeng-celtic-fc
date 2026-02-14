@@ -16,22 +16,23 @@ type NavItem =
 export default function ClubHeader() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
-  const nav: NavItem[] = [
-    { label: "Home", href: "/" },
-    {
-      label: "About",
-      children: [
-        { label: "Club Info", href: "/club-info" },
-        { label: "Committee", href: "/committee" },
-        { label: "History", href: "/history" },
-      ],
-    },
-    { label: "Teams", href: "/teams" },
-    { label: "Announcements", href: "/announcements" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Registration", href: "/registration" },
-    { label: "Contact", href: "/contact" },
-  ];
+const nav: NavItem[] = [
+  { label: "Home", href: "/" },
+  {
+    label: "About",
+    children: [
+      { label: "Club Info", href: "/club-info" },
+      { label: "Committee", href: "/committee" },
+      { label: "History", href: "/history" },
+    ],
+  },
+  { label: "Announcements", href: "/announcements" },
+  { label: "Gallery", href: "/gallery" },
+  { label: "Social", href: "/social" },
+  { label: "Registration", href: "/registration" },
+  { label: "Contact", href: "/contact" },
+];
+
 
   return (
     <header className="w-full">

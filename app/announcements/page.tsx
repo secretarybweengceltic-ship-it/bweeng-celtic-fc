@@ -1,4 +1,3 @@
-import ClubHeader from "../../components/ClubHeader";
 import { supabase } from "@/lib/supabaseClient";
 import Link from "next/link";
 
@@ -13,7 +12,7 @@ export default async function AnnouncementsPage() {
     <main className="min-h-screen bg-slate-50">
 
       {/* Header */}
-      <ClubHeader />
+      
 
       {/* Page title section */}
       <section
@@ -44,6 +43,13 @@ export default async function AnnouncementsPage() {
               key={post.id}
               className="bg-white border rounded-xl p-6 hover:shadow-md transition"
             >
+{post.image_url && (
+  <img
+    src={post.image_url}
+    alt="Announcement"
+    className="w-full h-48 object-cover rounded-lg mb-4 border"
+  />
+)}
 
               {/* Category */}
               <div className="text-xs font-extrabold text-yellow-500">
