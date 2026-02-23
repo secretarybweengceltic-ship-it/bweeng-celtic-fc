@@ -1,131 +1,65 @@
-"use client";
-
 import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 
-type Child = {
-  label: string;
-  href: string;
-};
+interface ClubHeaderProps {
+  title: string;
+  subtitle?: string;
+}
 
-type NavItem =
-  | { label: string; href: string }
-  | { label: string; children: Child[] };
-
-export default function ClubHeader() {
-  const [openMenu, setOpenMenu] = useState<string | null>(null);
-
-const nav: NavItem[] = [
-  { label: "Home", href: "/" },
-  {
-    label: "About",
-    children: [
-      { label: "Club Info", href: "/club-info" },
-      { label: "Committee", href: "/committee" },
-      { label: "History", href: "/history" },
-    ],
-  },
-  { label: "Announcements", href: "/announcements" },
-  { label: "Gallery", href: "/gallery" },
-  { label: "Social", href: "/social" },
-  { label: "Registration", href: "/registration" },
-  { label: "Contact", href: "/contact" },
-];
-
-
+export default function ClubHeader({ title, subtitle }: ClubHeaderProps) {
   return (
-    <header className="w-full">
-      {/* Top info bar */}
-      <div className="bg-[#0B2A6F] text-white text-xs">
-        <div className="mx-auto max-w-7xl px-4 py-2 flex justify-between">
-          <div>Bweeng Celtic FC • Bweeng, Co. Cork</div>
+    <section className="relative">
 
-          <div className="flex gap-3">
-            <a href="#" className="hover:text-yellow-300">
-              Facebook
-            </a>
-            <a href="#" className="hover:text-yellow-300">
-              Instagram
-            </a>
-          </div>
-        </div>
-      </div>
+      {/* Yellow outer */}
+      <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400">
 
-      {/* Main header */}
-      <div className="bg-white border-b">
-        <div className="mx-auto max-w-7xl px-4 py-4 flex items-center">
-          {/* Crest + name */}
-          <Link href="/" className="flex items-center gap-3">
-            <Image
-              src="/crest.png"
-              alt="Bweeng Celtic FC crest"
-              width={50}
-              height={50}
-              priority
-            />
+        {/* Blue inner */}
+        <div className="bg-[#0B2A6F]/95">
 
-            <div>
-              <div className="text-xs text-gray-500">Official Club Site</div>
-              <div className="font-extrabold text-lg text-[#0B2A6F]">
-                BWEENG CELTIC FC
-              </div>
+          {/* Top stripe */}
+          <div className="h-2 bg-yellow-400 w-full" />
+
+          <div className="mx-auto max-w-7xl px-4 py-8 md:py-10 flex items-center gap-6">
+
+            {/* Crest */}
+            <div className="relative w-20 h-20 md:w-24 md:h-24 flex-shrink-0
+                            transition-transform duration-300 hover:scale-105
+                            [filter:drop-shadow(0_0_10px_rgba(250,204,21,1))]">
+              <Image
+                src="/crest.png"
+                alt="Bweeng Celtic FC crest"
+                fill
+                className="object-contain"
+                priority
+              />
             </div>
-          </Link>
 
-          {/* Navigation */}
-          <nav className="ml-auto hidden md:flex gap-6 font-bold">
-            {nav.map((item) => {
-              if ("children" in item) {
-                return (
-                  <div
-                    key={item.label}
-                    className="relative"
-                    onMouseEnter={() => setOpenMenu(item.label)}
-                    onMouseLeave={() => setOpenMenu(null)}
-                  >
-                    <button className="text-[#0B2A6F] hover:text-yellow-500">
-                      {item.label}
-                    </button>
+            {/* Text */}
+            <div>
 
-                    {openMenu === item.label && (
-                      <div className="absolute bg-white border shadow rounded mt-2 min-w-[180px]">
-                        {item.children.map((child) => (
-                          <Link
-                            key={child.href}
-                            href={child.href}
-                            className="block px-4 py-2 hover:bg-yellow-100"
-                          >
-                            {child.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                );
-              }
+              <h1 className="text-3xl md:text-4xl font-extrabold text-white">
+                {title}
+              </h1>
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="text-[#0B2A6F] hover:text-yellow-500"
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
+              {/* Welcome text */}
+              {subtitle && (
+                <p className="mt-2 text-yellow-300 font-semibold">
+                  {subtitle}
+                </p>
+              )}
 
-          {/* Admin button */}
-          <Link
-            href="/admin"
-            className="ml-4 px-4 py-2 rounded font-extrabold bg-yellow-400 text-[#0B2A6F]"
-          >
-            Admin
-          </Link>
+              <div className="mt-3 h-2 w-32 bg-yellow-400 rounded" />
+
+            </div>
+
+          </div>
+
+          {/* Bottom stripe */}
+          <div className="h-2 bg-yellow-400 w-full" />
+
         </div>
+
       </div>
-    </header>
+
+    </section>
   );
 }

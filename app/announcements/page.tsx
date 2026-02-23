@@ -1,118 +1,68 @@
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 import { supabase } from "@/lib/supabaseClient";
-import Link from "next/link";
+
+type Announcement = {
+  id: string;
+  title: string;
+  content: string;
+  category: string;
+  published: boolean;
+  image_url: string | null;
+  created_at: string;
+};
 
 export default async function AnnouncementsPage() {
-
-  const { data: announcements } = await supabase
+  const { data, error } = await supabase
     .from("announcements")
     .select("*")
+    .eq("published", true)
     .order("created_at", { ascending: false });
 
+  const posts = (data ?? []) as Announcement[];
+
   return (
-    <main className="min-h-screen bg-slate-50">
+    <main className="mx-auto max-w-5xl px-4 py-10">
+      <h1 className="text-4xl font-extrabold text-[#0B2A6F]">News</h1>
+      <p className="mt-2 text-slate-600">Latest announcements from the club.</p>
 
-      {/* Header */}
-      
-
-      {/* Page title section */}
-      <section
-        className="text-white"
-        style={{ background: "#0B2A6F" }}
-      >
-        <div className="mx-auto max-w-7xl px-4 py-12">
-
-          <h1 className="text-4xl font-extrabold">
-            Club Announcements
-          </h1>
-
-          <p className="mt-2 text-white/80">
-            All official updates and news from Bweeng Celtic FC.
-          </p>
-
+      {error && (
+        <div className="mt-6 bg-white border rounded-xl p-4 text-red-700">
+          Error loading announcements: <b>{error.message}</b>
         </div>
-      </section>
+      )}
 
-      {/* Announcements list */}
-      <section className="mx-auto max-w-7xl px-4 py-10">
+      <div className="mt-6 grid gap-4">
+        {posts.map((p) => (
+          <article key={p.id} className="bg-white border rounded-2xl overflow-hidden">
+            {p.image_url && (
+              <img
+                src={p.image_url}
+                alt=""
+                className="h-56 w-full object-cover"
+              />
+            )}
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="p-5">
+              <div className="text-sm font-bold text-yellow-700">{p.category}</div>
+              <h2 className="mt-1 text-2xl font-extrabold text-[#0B2A6F]">{p.title}</h2>
+              <p className="mt-2 text-slate-700 whitespace-pre-wrap">{p.content}</p>
 
-          {announcements?.map((post: any) => (
-
-            <div
-              key={post.id}
-              className="bg-white border rounded-xl p-6 hover:shadow-md transition"
-            >
-{post.image_url && (
-  <img
-    src={post.image_url}
-    alt="Announcement"
-    className="w-full h-48 object-cover rounded-lg mb-4 border"
-  />
-)}
-
-              {/* Category */}
-              <div className="text-xs font-extrabold text-yellow-500">
-                {post.category}
+              <div className="mt-4 text-xs text-slate-500">
+                Posted: {new Date(p.created_at).toLocaleString()}
               </div>
-
-              {/* Title */}
-              <div className="text-xl font-extrabold text-[#0B2A6F] mt-1">
-                {post.title}
-              </div>
-
-              {/* Content */}
-              <div className="mt-3 text-slate-700 whitespace-pre-wrap">
-                {post.content}
-              </div>
-
-              {/* Date */}
-              <div className="mt-4 text-sm text-slate-500">
-                {post.created_at
-                  ? new Date(post.created_at).toLocaleDateString()
-                  : ""}
-              </div>
-
             </div>
+          </article>
+        ))}
 
-          ))}
-
-        </div>
-
-        {/* If no announcements */}
-        {!announcements?.length && (
-
-          <div className="mt-6 bg-white border rounded-xl p-6">
-            No announcements yet.
+        {!posts.length && !error && (
+          <div className="bg-white border rounded-2xl p-6 text-slate-600">
+            No announcements yet (or they are saved as Draft). In admin, make sure{" "}
+            <b>Published</b> is ticked.
           </div>
-
         )}
-
-        {/* Back to home link */}
-        <div className="mt-8">
-
-          <Link
-            href="/"
-            className="font-bold text-[#0B2A6F] underline"
-          >
-            ← Back to Homepage
-          </Link>
-
-        </div>
-
-      </section>
-
-      {/* Footer */}
-      <footer className="border-t bg-white">
-
-        <div className="mx-auto max-w-7xl px-4 py-6 text-center text-sm text-slate-500">
-
-          © {new Date().getFullYear()} Bweeng Celtic FC
-
-        </div>
-
-      </footer>
-
+      </div>
     </main>
   );
 }
