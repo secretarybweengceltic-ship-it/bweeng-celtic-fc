@@ -28,7 +28,9 @@ export default async function GalleryPage() {
           <div className="inline-flex items-center gap-2 rounded-full border border-yellow-200 bg-yellow-50 px-3 py-1 text-xs font-extrabold text-[#0B2A6F]">
             Photos
           </div>
-          <h1 className="mt-4 text-4xl md:text-5xl font-extrabold text-[#0B2A6F]">Gallery</h1>
+          <h1 className="mt-4 text-4xl md:text-5xl font-extrabold text-[#0B2A6F]">
+            Gallery
+          </h1>
           <p className="mt-3 max-w-3xl text-slate-700">
             Photos from matches, training, events and club activities.
           </p>
@@ -50,7 +52,6 @@ export default async function GalleryPage() {
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {photos.map((p) => (
           <figure key={p.id} className="overflow-hidden rounded-2xl border bg-white">
-            {/* Use <img> so no next/image config issues */}
             <div className="relative aspect-square bg-slate-100">
               <img
                 src={p.public_url}
@@ -61,11 +62,7 @@ export default async function GalleryPage() {
             </div>
 
             <figcaption className="p-4">
-              {p.caption ? (
-                <div className="font-bold text-slate-800">{p.caption}</div>
-              ) : (
-                <div className="text-slate-500 text-sm"> </div>
-              )}
+              <div className="font-bold text-slate-800">{p.caption ?? ""}</div>
               <div className="mt-1 text-xs text-slate-500">
                 {new Date(p.created_at).toLocaleDateString()}
               </div>
