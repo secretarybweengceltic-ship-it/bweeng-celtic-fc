@@ -73,3 +73,79 @@ export default function GalleryClient({
                 alt={image.name}
                 fill
                 className="object-cover"
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Modal */}
+      {selectedIndex !== null && (
+        <div
+          {...swipeHandlers}
+          className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center z-50"
+        >
+          {/* Close Button */}
+          <button
+            onClick={closeModal}
+            className="absolute top-5 right-6 text-white text-3xl"
+          >
+            ✕
+          </button>
+
+          {/* Desktop Arrows */}
+          <div className="hidden sm:block">
+            {selectedIndex > 0 && (
+              <button
+                onClick={goPrev}
+                className="absolute left-6 top-1/2 -translate-y-1/2 text-white text-5xl"
+              >
+                ←
+              </button>
+            )}
+
+            {selectedIndex < images.length - 1 && (
+              <button
+                onClick={goNext}
+                className="absolute right-6 top-1/2 -translate-y-1/2 text-white text-5xl"
+              >
+                →
+              </button>
+            )}
+          </div>
+
+          {/* Image */}
+          <div className="relative w-full max-w-6xl h-[70vh] sm:h-[80vh] px-4">
+            <Image
+              src={images[selectedIndex].src}
+              alt={images[selectedIndex].name}
+              fill
+              className="object-contain"
+            />
+          </div>
+
+          {/* Mobile Bottom Controls */}
+          <div className="flex sm:hidden gap-10 mt-6">
+            {selectedIndex > 0 && (
+              <button
+                onClick={goPrev}
+                className="text-white text-3xl"
+              >
+                ←
+              </button>
+            )}
+
+            {selectedIndex < images.length - 1 && (
+              <button
+                onClick={goNext}
+                className="text-white text-3xl"
+              >
+                →
+              </button>
+            )}
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}
