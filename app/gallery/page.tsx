@@ -21,29 +21,35 @@ export default function GalleryPage() {
           limit: 100,
           sortBy: { column: "created_at", order: "desc" },
         });
-
+  
+      console.log("Supabase data:", data);
+      console.log("Supabase error:", error);
+  
       if (error) {
         console.error("Error loading images:", error);
         return;
       }
-
+  
       const urls =
         data?.map((file) => {
           const { data } = supabase.storage
             .from("gallery")
             .getPublicUrl(file.name);
-
+  
           return {
             src: data.publicUrl,
             name: file.name,
           };
         }) || [];
-
+  
+      console.log("Generated URLs:", urls);
+  
       setImages(urls);
     }
-
+  
     loadImages();
   }, []);
+
 
   return (
     <main className="min-h-screen bg-black text-white p-8">
