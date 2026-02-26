@@ -228,42 +228,89 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        {mobileOpen && (
-
-          <div className="md:hidden border-t bg-white shadow-lg rounded-b-2xl pb-6 pt-2 font-semibold text-[#0B2A6F]">
-
-            <Link href="/" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Home</Link>
-
-            <Link href="/announcements" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">News</Link>
-
-            <Link href="/about" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">About</Link>
-
-            <Link href="/club-history" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Club History</Link>
-
-            <Link href="/committee" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Club Committee</Link>
-
-            {/* FIXED Mobile Documents Link */}
-            <Link href="/about/documents" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">
-              Club Documents
-            </Link>
-
-            <Link href="/fixtures" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Fixtures</Link>
-
-            <Link href="/gallery" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Gallery</Link>
-
-            <a
-  href={SHOP_URL}
-  target="_blank"
-  rel="noreferrer"
-  onClick={closeMobile}
-  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
->
-  Club Shop
-</a>
-
-          </div>
-
-        )}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
+          mobileOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+              }`}
+            >
+              <div className="border-t bg-white shadow-lg rounded-b-2xl pb-6 pt-2 font-semibold text-[#0B2A6F]">
+            
+                <Link
+                  href="/"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Home
+                </Link>
+            
+                <Link
+                  href="/announcements"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  News
+                </Link>
+            
+                <Link
+                  href="/about"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  About
+                </Link>
+            
+                <Link
+                  href="/club-history"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Club History
+                </Link>
+            
+                <Link
+                  href="/committee"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Club Committee
+                </Link>
+            
+                <Link
+                  href="/about/documents"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Club Documents
+                </Link>
+            
+                <Link
+                  href="/fixtures"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Fixtures
+                </Link>
+            
+                <Link
+                  href="/gallery"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Gallery
+                </Link>
+            
+                <a
+                  href={SHOP_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={closeMobile}
+                  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
+                >
+                  Club Shop
+                </a>
+            
+              </div>
+            </div>
 
       </nav>
     </header>
