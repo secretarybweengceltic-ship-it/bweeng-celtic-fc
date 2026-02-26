@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { useSwipeable } from "react-swipeable";
 
 type GalleryImage = {
   src: string;
@@ -46,13 +45,6 @@ export default function GalleryClient({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedIndex]);
 
-  // Swipe support (mobile)
-  const swipeHandlers = useSwipeable({
-    onSwipedLeft: goNext,
-    onSwipedRight: goPrev,
-    trackMouse: true,
-  });
-
   return (
     <main className="min-h-screen bg-black text-white p-6 sm:p-8">
       <h1 className="text-3xl sm:text-4xl font-bold mb-8 sm:mb-10 text-center">
@@ -81,10 +73,8 @@ export default function GalleryClient({
 
       {/* Modal */}
       {selectedIndex !== null && (
-        <div
-          {...swipeHandlers}
-          className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center z-50"
-        >
+        <div className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center z-50">
+          
           {/* Close Button */}
           <button
             onClick={closeModal}
@@ -92,27 +82,6 @@ export default function GalleryClient({
           >
             ✕
           </button>
-
-          {/* Desktop Arrows */}
-          <div className="hidden sm:block">
-            {selectedIndex > 0 && (
-              <button
-                onClick={goPrev}
-                className="absolute left-6 top-1/2 -translate-y-1/2 text-white text-5xl"
-              >
-                ←
-              </button>
-            )}
-
-            {selectedIndex < images.length - 1 && (
-              <button
-                onClick={goNext}
-                className="absolute right-6 top-1/2 -translate-y-1/2 text-white text-5xl"
-              >
-                →
-              </button>
-            )}
-          </div>
 
           {/* Image */}
           <div className="relative w-full max-w-6xl h-[70vh] sm:h-[80vh] px-4">
@@ -124,8 +93,8 @@ export default function GalleryClient({
             />
           </div>
 
-          {/* Mobile Bottom Controls */}
-          <div className="flex sm:hidden gap-10 mt-6">
+          {/* Bottom Controls (Mobile Friendly) */}
+          <div className="flex gap-10 mt-6">
             {selectedIndex > 0 && (
               <button
                 onClick={goPrev}
