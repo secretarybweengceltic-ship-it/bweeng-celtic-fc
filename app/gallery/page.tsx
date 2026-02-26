@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabaseClient";
 
 export default async function GalleryPage() {
   // Get list of files from "gallery" bucket
