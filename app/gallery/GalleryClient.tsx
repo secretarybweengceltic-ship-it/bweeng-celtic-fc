@@ -14,6 +14,7 @@ export default function GalleryClient({
   images: GalleryImage[];
 }) {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [direction, setDirection] = useState<"left" | "right" | null>(null);
 
   const touchStartX = useRef<number | null>(null);
   const touchEndX = useRef<number | null>(null);
@@ -23,6 +24,7 @@ export default function GalleryClient({
   const goNext = () => {
     if (selectedIndex === null) return;
     if (selectedIndex < images.length - 1) {
+      setDirection("left");
       setSelectedIndex(selectedIndex + 1);
     }
   };
@@ -30,11 +32,12 @@ export default function GalleryClient({
   const goPrev = () => {
     if (selectedIndex === null) return;
     if (selectedIndex > 0) {
+      setDirection("right");
       setSelectedIndex(selectedIndex - 1);
     }
   };
 
-  // Keyboard navigation (desktop)
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedIndex === null) return;
@@ -48,7 +51,7 @@ export default function GalleryClient({
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [selectedIndex]);
 
-  // Touch handlers (mobile swipe)
+  // Swipe handlers
   const handleTouchStart = (e: React.TouchEvent) => {
     touchEndX.current = null;
     touchStartX.current = e.targetTouches[0].clientX;
@@ -62,14 +65,10 @@ export default function GalleryClient({
     if (!touchStartX.current || !touchEndX.current) return;
 
     const distance = touchStartX.current - touchEndX.current;
+    const minSwipeDistance = 50;
 
-    const minSwipeDistance = 50; // sensitivity
-
-    if (distance > minSwipeDistance) {
-      goNext(); // swipe left
-    } else if (distance < -minSwipeDistance) {
-      goPrev(); // swipe right
-    }
+    if (distance > minSwipeDistance) goNext();
+    else if (distance < -minSwipeDistance) goPrev();
   };
 
   return (
@@ -101,7 +100,7 @@ export default function GalleryClient({
       {/* Modal */}
       {selectedIndex !== null && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center z-50"
+          className="fixed inset-0 bg-black bg-opacity-95 flex flex-col items-center justify-center z-50 overflow-hidden"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
@@ -109,22 +108,33 @@ export default function GalleryClient({
           {/* Close */}
           <button
             onClick={closeModal}
-            className="absolute top-5 right-6 text-white text-3xl"
+            className="absolute top-5 right-6 text-white text-3xl z-50"
           >
             ✕
           </button>
 
-          {/* Image */}
-          <div className="relative w-full max-w-6xl h-[70vh] sm:h-[80vh] px-4">
-            <Image
-              src={images[selectedIndex].src}
-              alt={images[selectedIndex].name}
-              fill
-              className="object-contain"
-            />
+          {/* Animated Image Wrapper */}
+          <div className="relative w-full max-w-6xl h-[70vh] sm:h-[80vh] px-4 flex items-center justify-center overflow-hidden">
+
+            <div
+              key={selectedIndex}
+              className={`
+                absolute inset-0 transition-all duration-300 ease-in-out
+                ${direction === "left" ? "animate-slide-left" : ""}
+                ${direction === "right" ? "animate-slide-right" : ""}
+              `}
+            >
+              <Image
+                src={images[selectedIndex].src}
+                alt={images[selectedIndex].name}
+                fill
+                className="object-contain transition-opacity duration-300 opacity-100"
+              />
+            </div>
+
           </div>
 
-          {/* Navigation Buttons */}
+          {/* Navigation */}
           <div className="flex justify-between w-full max-w-xs mt-8 px-8">
             <button
               onClick={goPrev}
@@ -144,6 +154,39 @@ export default function GalleryClient({
           </div>
         </div>
       )}
+
+      {/* Animations */}
+      <style jsx global>{`
+        @keyframes slideLeft {
+          from {
+            transform: translateX(40px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        @keyframes slideRight {
+          from {
+            transform: translateX(-40px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+
+        .animate-slide-left {
+          animation: slideLeft 0.3s ease-in-out;
+        }
+
+        .animate-slide-right {
+          animation: slideRight 0.3s ease-in-out;
+        }
+      `}</style>
     </main>
   );
 }
