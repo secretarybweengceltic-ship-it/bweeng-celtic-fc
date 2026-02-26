@@ -146,66 +146,70 @@ function renderCard(f: Fixture, featured = false) {
     </div>
   );
 }
+
+export default function FixturesPage() {
   return (
-    <main className="mx-auto max-w-5xl px-4 py-10">
-      <h1 className="text-4xl font-extrabold text-[#0B2A6F]">Fixtures & Results</h1>
-      <p className="mt-2 text-slate-600">Upcoming fixtures and recent results.</p>
-
-      {error && (
-        <div className="mt-6 bg-white border rounded-xl p-4 text-red-700">
-          Error loading fixtures: <b>{error.message}</b>
-        </div>
-      )}
-
-      {/* Featured Next Match */}
-      <div className="mt-6">
-        {nextMatch ? (
-          renderCard(nextMatch, true)
-        ) : (
-          <div className="bg-white border rounded-2xl p-6 text-slate-600">
-            No upcoming fixtures yet.
+    //<main className="mx-auto max-w-5xl px-4 py-10">
+      <main className="dark-page min-h-screen">
+        <h1 className="section-title text-3xl sm:text-4xl">Fixtures & Results</h1>
+        <p className="section-subtitle">Upcoming fixtures and recent results.</p>
+  
+        {error && (
+          <div className="mt-6 bg-white border rounded-xl p-4 text-red-700">
+            Error loading fixtures: <b>{error.message}</b>
           </div>
         )}
-      </div>
-
-      {/* Upcoming */}
-      <div className="mt-10">
-        <div className="flex items-end justify-between gap-3">
-          <h2 className="text-2xl font-extrabold text-[#0B2A6F]">Upcoming Fixtures</h2>
-          <div className="text-sm text-slate-600">{upcoming.length} listed</div>
-        </div>
-
-        <div className="mt-4 grid gap-4">
-          {upcoming.length ? (
-            upcoming
-              // don’t repeat the featured one
-              .filter((f) => f.id !== nextMatch?.id)
-              .map((f) => renderCard(f))
+  
+        {/* Featured Next Match */}
+        <div className="mt-6">
+          {nextMatch ? (
+            renderCard(nextMatch, true)
           ) : (
             <div className="bg-white border rounded-2xl p-6 text-slate-600">
-              No upcoming fixtures.
+              No upcoming fixtures yet.
             </div>
           )}
         </div>
-      </div>
-
-      {/* Results */}
-      <div className="mt-10">
-        <div className="flex items-end justify-between gap-3">
-          <h2 className="text-2xl font-extrabold text-[#0B2A6F]">Results</h2>
-          <div className="text-sm text-slate-600">{results.length} listed</div>
+  
+        {/* Upcoming */}
+        <div className="mt-10">
+          <div className="flex items-end justify-between gap-3">
+            <h2 className="text-2xl font-extrabold text-[#0B2A6F]">Upcoming Fixtures</h2>
+            <div className="text-sm text-slate-600">{upcoming.length} listed</div>
+          </div>
+  
+          <div className="mt-4 grid gap-4">
+            {upcoming.length ? (
+              upcoming
+                // don’t repeat the featured one
+                .filter((f) => f.id !== nextMatch?.id)
+                .map((f) => renderCard(f))
+            ) : (
+              <div className="bg-white border rounded-2xl p-6 text-slate-600">
+                No upcoming fixtures.
+              </div>
+            )}
+          </div>
         </div>
-
-        <div className="mt-4 grid gap-4">
-          {resultsNewestFirst.length ? (
-            resultsNewestFirst.map((f) => renderCard(f))
-          ) : (
-            <div className="bg-white border rounded-2xl p-6 text-slate-600">
-              No results yet.
-            </div>
-          )}
+  
+        {/* Results */}
+        <div className="mt-10">
+          <div className="flex items-end justify-between gap-3">
+            <h2 className="text-2xl font-extrabold text-[#0B2A6F]">Results</h2>
+            <div className="text-sm text-slate-600">{results.length} listed</div>
+          </div>
+  
+          <div className="mt-4 grid gap-4">
+            {resultsNewestFirst.length ? (
+              resultsNewestFirst.map((f) => renderCard(f))
+            ) : (
+              <div className="bg-white border rounded-2xl p-6 text-slate-600">
+                No results yet.
+              </div>
+            )}
+          </div>
         </div>
-      </div>
-    </main>
-  );
+      </main>
+    );
+  }
 }
