@@ -65,7 +65,7 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <span className="font-extrabold text-[#0B2A6F]">
+            <span className="font-extrabold text-[#0B2A6F] text-sm sm:text-base md:text-lg">
               Bweeng Celtic FC
             </span>
           </Link>
@@ -210,10 +210,19 @@ export default function Navbar() {
 
           {/* Mobile Button */}
           <button
-            className="md:hidden border px-3 py-2 rounded-lg"
             onClick={() => setMobileOpen(!mobileOpen)}
+            className="md:hidden p-3 rounded-xl bg-[#0B2A6F] text-white shadow-md active:scale-95 transition"
+            aria-label="Toggle menu"
           >
-            ☰
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
           </button>
 
         </div>
@@ -221,33 +230,33 @@ export default function Navbar() {
         {/* Mobile Menu */}
         {mobileOpen && (
 
-          <div className="md:hidden border-t pb-4 font-bold text-[#0B2A6F]">
+          <div className="md:hidden border-t bg-white shadow-lg rounded-b-2xl pb-6 pt-2 font-semibold text-[#0B2A6F]">
 
-            <Link href="/" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">Home</Link>
+            <Link href="/" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Home</Link>
 
-            <Link href="/announcements" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">News</Link>
+            <Link href="/announcements" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">News</Link>
 
-            <Link href="/about" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">About</Link>
+            <Link href="/about" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">About</Link>
 
-            <Link href="/club-history" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">Club History</Link>
+            <Link href="/club-history" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Club History</Link>
 
-            <Link href="/committee" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">Club Committee</Link>
+            <Link href="/committee" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Club Committee</Link>
 
             {/* FIXED Mobile Documents Link */}
-            <Link href="/about/documents" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">
+            <Link href="/about/documents" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">
               Club Documents
             </Link>
 
-            <Link href="/fixtures" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">Fixtures</Link>
+            <Link href="/fixtures" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Fixtures</Link>
 
-            <Link href="/gallery" onClick={closeMobile} className="block px-4 py-2 hover:bg-slate-50">Gallery</Link>
+            <Link href="/gallery" onClick={closeMobile} className="block px-6 py-3 text-lg hover:bg-slate-100 transition">Gallery</Link>
 
             <a
   href={SHOP_URL}
   target="_blank"
   rel="noreferrer"
   onClick={closeMobile}
-  className="block px-4 py-2 hover:bg-slate-50"
+  className="block px-6 py-3 text-lg hover:bg-slate-100 transition"
 >
   Club Shop
 </a>
