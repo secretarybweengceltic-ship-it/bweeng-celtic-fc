@@ -52,7 +52,7 @@ export default function Navbar() {
     <header className="bg-white border-b sticky top-0 z-50">
       <nav ref={navRef} className="mx-auto max-w-7xl px-4">
 
-        <div className="h-16 flex items-center justify-between">
+        <div className="h-16 sm:h-18 flex items-center justify-between">
 
           {/* Crest + Name */}
           <Link href="/" className="flex items-center gap-3">
