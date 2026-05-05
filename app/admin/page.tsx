@@ -5,6 +5,13 @@ import { useEffect, useState } from "react";
 import { supabaseBrowser } from "@/lib/supabaseClient";
 
 const ADMIN_EMAILS = ["pro.bweeng.celtic@gmail.com"];
+["secretary.bweeng.celtic@gmail.com"];
+["Chairman.bweeng.celtic@gmail.com"];
+["Treasurer.bweeng.celtic@gmail.com"];
+["manager.bweeng.celtic@gmail.com"];
+["childwelfare.bweeng.celtic@gmail.com"];
+["vicesecretary.bweeng.celtic@gmail.com"];
+["vicetreasurer.bweeng.celtic@gmail.com"];
 
 export default function AdminPage() {
   const [user, setUser] = useState<any>(null);
