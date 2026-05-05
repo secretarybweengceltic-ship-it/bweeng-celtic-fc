@@ -226,20 +226,20 @@ export async function POST(req: Request) {
     const baseUrl = host ? `${proto}://${host}` : "http://localhost:3000";
     const crestUrl = `${baseUrl}/crest.png`;
 
-    const pdfBuffer = await renderToBuffer(
-      <InvoicePDF
-        crestUrl={crestUrl}
-        invoiceNumber={invoiceNumber as string}
-        status={status}
-        issueDate={issueDate}
-        dueDate={dueDate}
-        customerName={customerName}
-        customerEmail={customerEmail}
-        items={items}
-        tax={tax}
-        notes={notes}
-      />
-    );
+const pdfBuffer = await renderToBuffer(
+  <InvoicePDF
+    crestUrl={crestUrl}
+    invoiceNumber={invoiceNumber as string}
+    status={status}
+    issueDate={issueDate}
+    dueDate={dueDate}
+    customerName={customerName}
+    customerEmail={customerEmail}
+    items={items}
+    tax={tax}
+    notes={notes}
+  />
+);
 
     const result = await resend.emails.send({
       from: process.env.EMAIL_FROM || "Bweeng Celtic FC <onboarding@resend.dev>",
