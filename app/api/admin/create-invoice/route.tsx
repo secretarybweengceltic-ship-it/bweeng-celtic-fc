@@ -21,7 +21,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const CLUB_NAME = "Bweeng Celtic FC";
 const CLUB_ADDRESS = "Bweeng, Co. Cork, P51KD5C";
 const COMPANY_REG = "3341214DH";
-const IBAN = "IE23 BOFI 9028 9017 4899 73";
+const IBAN = "IE23 BOFI 9028 8017 4899 73";
 
 const ROYAL_BLUE = "#0B2A6F";
 const YELLOW = "#FACC15";
