@@ -10,7 +10,7 @@ export default function AboutPage() {
     { label: "Location", value: "Bweeng, County Cork, Ireland" },
     { label: "Home Ground", value: "Bweeng Community Sports Grounds" },
     { label: "Affiliation", value: "Murphys Stout Cork Athletic Union League (AUL)" },
-    { label: "League", value: "Division 3" },
+    { label: "League", value: "Division 2" },
     { label: "Governing Body", value: "Football Association of Ireland (FAI)" },
   ];
 
