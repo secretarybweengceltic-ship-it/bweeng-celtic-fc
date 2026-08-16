@@ -70,7 +70,8 @@ export default function HistoryPage() {
     { season: "2022/23", league: "AUL League 2", position: "5th" },
     { season: "2023/24", league: "AUL League 2", position: "3rd" },
     { season: "2024/25", league: "AUL League 2", position: "9th" },
-    { season: "2025/26", league: "AUL League 3", position: "—" },
+    { season: "2025/26", league: "AUL League 3", position: "4th (Promoted)" },
+   { season: "2025/26", league: "AUL League 2", position: " " },
   ];
 
   const summary = [
